@@ -1,0 +1,981 @@
+<div class="min-h-screen relative overflow-hidden bg-neutral-950 text-white">
+  <div class="absolute inset-0 hero-glow"></div>
+  <div class="absolute inset-0 hero-grid opacity-60"></div>
+  <div class="absolute inset-0 hero-vignette"></div>
+
+  <div class="relative z-10">
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-[#161616]/95 backdrop-blur-xl">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 pb-4 pt-6">
+        <div class="flex items-center gap-3">
+          <div class="flex h-12 w-12 items-center justify-center rounded-full border border-orange-500/40 bg-orange-500/10">
+            <svg class="h-6 w-6 text-orange-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 2.5c4.418 0 8 3.134 8 7 0 3.866-3.582 7-8 7-2.072 0-3.967-.69-5.376-1.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M7.5 6.5c-2.761 0-5 2.015-5 4.5s2.239 4.5 5 4.5c1.91 0 3.578-.965 4.397-2.394" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="16.5" cy="6.5" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="leading-tight">
+            <div class="text-xl font-bold">عدسة</div>
+            <div class="text-xs text-orange-400">عالم التصوير الفوتوغرافي</div>
+          </div>
+        </div>
+
+        <nav class="hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-1 text-sm text-neutral-300 md:flex">
+          <a class="rounded-full px-4 py-2 transition hover:text-white" routerLink="/" routerLinkActive="bg-orange-500 text-white shadow-lg shadow-orange-500/30" [routerLinkActiveOptions]="{ exact: true }">الرئيسية</a>
+          <a class="rounded-full px-4 py-2 transition hover:text-white" routerLink="/blog" routerLinkActive="bg-orange-500 text-white shadow-lg shadow-orange-500/30">المدونة</a>
+          <a class="rounded-full px-4 py-2 transition hover:text-white" routerLink="/about" routerLinkActive="bg-orange-500 text-white shadow-lg shadow-orange-500/30">من نحن</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <button class="hidden items-center gap-2 rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-500/30 transition hover:bg-orange-400 sm:inline-flex">
+            ابدأ القراءة
+          </button>
+          <button class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 transition hover:bg-white/10" aria-label="بحث">
+            <svg class="h-5 w-5 text-neutral-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="mx-auto max-w-5xl px-6 pt-24 pb-16 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1 text-sm text-orange-200">
+        <span class="h-2 w-2 rounded-full bg-orange-400"></span>
+        <span class="h-2 w-2 rounded-full bg-orange-500/60"></span>
+        مدونتنا
+      </div>
+
+      <h1 class="mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+        استكشف <span class="text-orange-400">مقالاتنا</span>
+      </h1>
+
+      <p class="mt-5 text-sm text-neutral-300 md:text-base">
+        اكتشف الدروس والرؤى وأفضل الممارسات للتطوير الحديث.
+      </p>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 pb-6">
+      <div class="flex flex-col gap-4 border-y border-white/10 py-6 md:flex-row md:items-center md:justify-between">
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" (click)="setCategory('all')" [ngClass]="activeCategory === 'all' ? 'border-orange-500/40 bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="rounded-full border px-4 py-2 text-xs font-semibold">جميع المقالات</button>
+          <button type="button" (click)="setCategory('إضاءة')" [ngClass]="activeCategory === 'إضاءة' ? 'border-orange-500/40 bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="rounded-full border px-4 py-2 text-xs font-semibold">إضاءة</button>
+          <button type="button" (click)="setCategory('بورتريه')" [ngClass]="activeCategory === 'بورتريه' ? 'border-orange-500/40 bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="rounded-full border px-4 py-2 text-xs font-semibold">بورتريه</button>
+          <button type="button" (click)="setCategory('مناظر طبيعية')" [ngClass]="activeCategory === 'مناظر طبيعية' ? 'border-orange-500/40 bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="rounded-full border px-4 py-2 text-xs font-semibold">مناظر طبيعية</button>
+          <button type="button" (click)="setCategory('تقنيات')" [ngClass]="activeCategory === 'تقنيات' ? 'border-orange-500/40 bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="rounded-full border px-4 py-2 text-xs font-semibold">تقنيات</button>
+          <button type="button" (click)="setCategory('معدات')" [ngClass]="activeCategory === 'معدات' ? 'border-orange-500/40 bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="rounded-full border px-4 py-2 text-xs font-semibold">معدات</button>
+        </div>
+
+        <div class="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-neutral-300">
+          <svg class="h-4 w-4 text-neutral-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input class="w-56 bg-transparent text-right text-sm text-white placeholder:text-neutral-500 focus:outline-none" placeholder="ابحث في المقالات...">
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-1">
+          <button class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500 text-white shadow-lg shadow-orange-500/20" aria-label="عرض شبكي">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M4 4h7v7H4z" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M13 4h7v7h-7z" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M4 13h7v7H4z" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M13 13h7v7h-7z" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </button>
+          <button class="flex h-10 w-10 items-center justify-center rounded-xl text-neutral-300 transition hover:bg-white/10" aria-label="عرض قائمة">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M4 6h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M4 12h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M4 18h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="text-sm text-neutral-400">عرض {{ visibleArticlesCount }} مقالاً</div>
+      </div>
+    </section>
+
+    <section id="blog-articles" class="mx-auto max-w-6xl px-6 pb-20" (click)="openArticleFromDom($event)">
+      <div [ngClass]="activeCategory !== 'all' ? 'grid gap-6 md:grid-cols-3' : ''">
+      <div *ngIf="activeCategory !== 'all' || currentPage === 1" data-page-grid [ngClass]="activeCategory !== 'all' ? 'contents' : 'grid gap-6 md:grid-cols-3'">
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80" alt="جبال عند الغروب" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">مناظر طبيعية</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>10 دقائق للقراءة</span>
+              <span>10 يناير 2024</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">دليل تصوير المناظر الطبيعية: من المبتدئ إلى المحترف</h3>
+            <p class="mt-3 text-sm text-neutral-400">استكشف تقنيات تصوير المناظر الطبيعية الخلابة وكيفية التقاط جمال الطبيعة بعدستك.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=120&q=80" alt="إبراهيم حسن" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">إبراهيم حسن</div>
+                  <div class="text-xs text-neutral-500">مصور طبيعة</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80" alt="لقطة بورتريه" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">بورتريه</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>6 دقائق للقراءة</span>
+              <span>12 يناير 2024</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">أسرار تصوير البورتريه: كيف تلتقط روح الشخصية</h3>
+            <p class="mt-3 text-sm text-neutral-400">اكتشف تقنيات احترافية لتصوير بورتريهات تعبيرية تكشف عن شخصية الموضوع الحقيقية.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=120&q=80" alt="محمد علي" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">محمد علي</div>
+                  <div class="text-xs text-neutral-500">مصور بورتريه</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="سحب مضاءة بأشعة الشمس" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">إضاءة</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>8 دقائق للقراءة</span>
+              <span>15 يناير 2024</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">إتقان تصوير الساعة الذهبية: دليل شامل</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم كيفية التقاط صور مذهلة خلال الساعة الذهبية مع نصائح احترافية حول الإضاءة والتكوين.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80" alt="سالم أحمد" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">سالم أحمد</div>
+                  <div class="text-xs text-neutral-500">مصور محترف</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80" alt="هاتف ذكي" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">معدات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>8 دقائق للقراءة</span>
+              <span>3 يناير 2024</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير الهاتف المحمول: كيف تلتقط صورة احترافية بهاتفك</h3>
+            <p class="mt-3 text-sm text-neutral-400">اكتشف كيف تحول هاتفك الذكي إلى أداة تصوير قوية مع هذه النصائح والتقنيات.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=120&q=80" alt="جمال عبدالله" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">جمال عبدالله</div>
+                  <div class="text-xs text-neutral-500">مصور ومراجع تقني</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=900&q=80" alt="كاميرا وعدة تصوير" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">تقنيات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>9 دقائق للقراءة</span>
+              <span>5 يناير 2024</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">قواعد التكوين الفوتوغرافي: كيف تجعل صورك أكثر جاذبية</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم قواعد التكوين الأساسية التي يستخدمها المصورون المحترفون لإنشاء صور مؤثرة بصرياً.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" alt="ليث محمود" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">ليث محمود</div>
+                  <div class="text-xs text-neutral-500">فنان بصري</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80" alt="إعدادات الكاميرا" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">تقنيات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>7 دقائق للقراءة</span>
+              <span>8 يناير 2024</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">أساسيات إعدادات الكاميرا: مثلث التعريض الضوئي</h3>
+            <p class="mt-3 text-sm text-neutral-400">افهم العلاقة بين فتحة العدسة وسرعة الغالق وحساسية ISO للتحكم الكامل في صورك.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80" alt="داود خالد" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">داود خالد</div>
+                  <div class="text-xs text-neutral-500">مدرب تصوير</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div *ngIf="activeCategory !== 'all' || currentPage === 2" data-page-grid [ngClass]="activeCategory !== 'all' ? 'contents' : 'grid gap-6 md:grid-cols-3'">
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80" alt="تصوير الطعام" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">تقنيات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>8 دقائق للقراءة</span>
+              <span>25 ديسمبر 2023</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير الطعام: كيف تجعل أطباقك تبدو شهية</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم تقنيات تصوير الطعام الاحترافية لإنشاء صور تثير الشهية وتجذب العيون.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=120&q=80" alt="هاني الشمري" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">هاني الشمري</div>
+                  <div class="text-xs text-neutral-500">مصور طعام</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80" alt="تصوير الشارع" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">بورتريه</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>7 دقائق للقراءة</span>
+              <span>28 ديسمبر 2023</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير الشارع: فن التقاط الحياة اليومية</h3>
+            <p class="mt-3 text-sm text-neutral-400">اكتشف أسرار تصوير الشارع وكيفية توثيق اللحظات العفوية في الحياة اليومية.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="نادر سعيد" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">نادر سعيد</div>
+                  <div class="text-xs text-neutral-500">مصور شارع</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=900&q=80" alt="تصوير الليل والنجوم" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">إضاءة</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>11 دقيقة للقراءة</span>
+              <span>1 يناير 2024</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير الليل والنجوم: دليلك لالتقاط سماء الليل</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم كيفية تصوير النجوم ودرب التبانة والمناظر الليلية الساحرة مع هذه التقنيات المتقدمة.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" alt="خالد الفيصل" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">خالد الفيصل</div>
+                  <div class="text-xs text-neutral-500">مصور فلكي</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?auto=format&fit=crop&w=900&q=80" alt="تحرير الصور" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">معدات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>12 دقيقة للقراءة</span>
+              <span>18 ديسمبر 2023</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">أساسيات تعديل الصور في Lightroom</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم كيفية استخدام Adobe Lightroom لتحسين صورك وإنشاء أسلوب بصري مميز.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80" alt="سامي الحربي" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">سامي الحربي</div>
+                  <div class="text-xs text-neutral-500">خبير تعديل صور</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80" alt="التصوير بالأبيض والأسود" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">تقنيات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>9 دقائق للقراءة</span>
+              <span>20 ديسمبر 2023</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">التصوير بالأبيض والأسود: فن الضوء والظل</h3>
+            <p class="mt-3 text-sm text-neutral-400">اكتشف جمال التصوير أحادي اللون وكيفية إنشاء صور قوية بدون ألوان.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="فارس العلي" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">فارس العلي</div>
+                  <div class="text-xs text-neutral-500">فنان فوتوغرافي</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=900&q=80" alt="تصوير الحياة البرية" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">مناظر طبيعية</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>10 دقائق للقراءة</span>
+              <span>22 ديسمبر 2023</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير الحياة البرية: كيف تلتقط عجائب الطبيعة</h3>
+            <p class="mt-3 text-sm text-neutral-400">دليل شامل لتصوير الحيوانات في بيئتها الطبيعية مع نصائح للمعدات والتقنيات.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80" alt="عمر الراشد" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">عمر الراشد</div>
+                  <div class="text-xs text-neutral-500">مصور حياة برية</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div *ngIf="activeCategory !== 'all' || currentPage === 3" data-page-grid [ngClass]="activeCategory !== 'all' ? 'contents' : 'grid gap-6 md:grid-cols-3'">
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80" alt="تصوير حفلات الزفاف" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">بورتريه</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>11 دقائق للقراءة</span>
+              <span>10 ديسمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير حفلات الزفاف: دليل المصور المحترف</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم أساسيات تصوير حفلات الزفاف من التحضير إلى تسليم الصور النهائية.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="منصور الزهراني" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">منصور الزهراني</div>
+                  <div class="text-xs text-neutral-500">مصور زفاف</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=80" alt="التعريض الطويل" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">إضاءة</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>8 دقائق للقراءة</span>
+              <span>12 ديسمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">التعريض الطويل: كيف تصور الحركة والزمن</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم تقنيات التعريض الطويل لإنشاء صور إبداعية تظهر الحركة بطريقة فنية ساحرة.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80" alt="باسم المصري" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">باسم المصري</div>
+                  <div class="text-xs text-neutral-500">مصور فني</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1441123285228-1448e608f3d5?auto=format&fit=crop&w=900&q=80" alt="التصوير الماكرو" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">تقنيات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>10 دقائق للقراءة</span>
+              <span>15 ديسمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">عالم التصوير الماكرو: اكتشف التفاصيل الخفية</h3>
+            <p class="mt-3 text-sm text-neutral-400">انغمس في عالم التصوير المقرب واكتشف جمال التفاصيل الصغيرة التي تفوتنا بالعين المجردة.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=120&q=80" alt="رامي الخطيب" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">رامي الخطيب</div>
+                  <div class="text-xs text-neutral-500">مصور ماكرو</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80" alt="تصوير العمارة" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">مناظر طبيعية</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>9 دقائق للقراءة</span>
+              <span>2 ديسمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير العمارة: كيف تلتقط روح المباني</h3>
+            <p class="mt-3 text-sm text-neutral-400">اكتشف تقنيات تصوير المباني والهندسة المعمارية بطريقة فنية تبرز جمالها وتفاصيلها.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&q=80" alt="طارق النعيمي" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">طارق النعيمي</div>
+                  <div class="text-xs text-neutral-500">مصور معماري</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=900&q=80" alt="تصوير المنتجات" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">تقنيات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>8 دقائق للقراءة</span>
+              <span>5 ديسمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold text-orange-500 transition-colors duration-300 group-hover:text-orange-400">تصوير المنتجات: أساسيات التصوير التجاري</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم كيفية تصوير المنتجات بشكل احترافي لمتجرك الإلكتروني أو عملائك التجاريين.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=80" alt="لؤي الصالح" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">لؤي الصالح</div>
+                  <div class="text-xs text-neutral-500">مصور تجاري</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 bg-orange-500 text-white transition group-hover:border-orange-500/60 group-hover:bg-orange-500/90">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=900&q=80" alt="التصوير بالدرون" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">معدات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>9 دقائق للقراءة</span>
+              <span>8 ديسمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">التصوير بالدرون: منظور جديد للعالم</h3>
+            <p class="mt-3 text-sm text-neutral-400">اكتشف عالم التصوير الجوي وتعلم أساسيات استخدام الدرون لالتقاط صور من زوايا فريدة.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="فيصل الدوسري" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">فيصل الدوسري</div>
+                  <div class="text-xs text-neutral-500">مصور جوي</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div *ngIf="activeCategory !== 'all' || currentPage === 4" data-page-grid [ngClass]="activeCategory !== 'all' ? 'contents' : 'grid gap-6 md:grid-cols-3'">
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=80" alt="تصوير السفر" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">مناظر طبيعية</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>9 دقائق للقراءة</span>
+              <span>22 نوفمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير السفر: كيف توثق رحلتك بصور لا تنسى</h3>
+            <p class="mt-3 text-sm text-neutral-400">نصائح عملية لتصوير السفر تساعدك على التقاط جوهر كل مكان تزوره.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1500048993953-d23a436266cf?auto=format&fit=crop&w=120&q=80" alt="ياسر العتيبي" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">ياسر العتيبي</div>
+                  <div class="text-xs text-neutral-500">مصور رحالة</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80" alt="التصوير بالفلاش" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">إضاءة</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>8 دقائق للقراءة</span>
+              <span>25 نوفمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">أساسيات التصوير بالفلاش: تحكم كامل في الإضاءة</h3>
+            <p class="mt-3 text-sm text-neutral-400">افهم كيفية استخدام الفلاش الخارجي لإنشاء إضاءة احترافية في أي موقف.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=120&q=80" alt="ماجد القحطاني" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">ماجد القحطاني</div>
+                  <div class="text-xs text-neutral-500">مصور استوديو</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=900&q=80" alt="تصوير الرياضة" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">بورتريه</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>10 دقائق للقراءة</span>
+              <span>28 نوفمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير الرياضة والحركة: تجميد اللحظة الحاسمة</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم تقنيات تصوير الأحداث الرياضية والحركة السريعة بوضوح ودقة احترافية.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="أحمد الشهري" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">أحمد الشهري</div>
+                  <div class="text-xs text-neutral-500">مصور رياضي</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80" alt="تصوير العقارات" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">تقنيات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>8 دقائق للقراءة</span>
+              <span>12 نوفمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير العقارات: كيف تجعل المنزل يبيع نفسه</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم تقنيات تصوير العقارات التي تجعل المنازل تبدو أفضل ما يمكن.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="عبدالله الغامدي" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">عبدالله الغامدي</div>
+                  <div class="text-xs text-neutral-500">مصور عقارات</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=900&q=80" alt="تصوير المواليد" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">بورتريه</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>10 دقائق للقراءة</span>
+              <span>15 نوفمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير المواليد: فن التقاط البراءة</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم تقنيات تصوير الأطفال حديثي الولادة بأمان واحترافية.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="نايف المطيري" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">نايف المطيري</div>
+                  <div class="text-xs text-neutral-500">مصور مواليد</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=900&q=80" alt="نظرية الألوان" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">تقنيات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>7 دقائق للقراءة</span>
+              <span>18 نوفمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">نظرية الألوان في التصوير: كيف تستخدم الألوان بذكاء</h3>
+            <p class="mt-3 text-sm text-neutral-400">افهم كيف تؤثر الألوان على مشاعر المشاهد وكيف تستخدمها لتعزيز صورك.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80" alt="دهام الحسني" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">دهام الحسني</div>
+                  <div class="text-xs text-neutral-500">فنان بصري</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div *ngIf="activeCategory !== 'all' || currentPage === 5" data-page-grid [ngClass]="activeCategory !== 'all' ? 'contents' : 'grid gap-6 md:grid-cols-3'">
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1516724562728-afc824a36e84?auto=format&fit=crop&w=900&q=80" alt="دليل العدسات للمبتدئين" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">معدات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>9 دقائق للقراءة</span>
+              <span>2 نوفمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">دليل العدسات للمبتدئين: كيف تختار عدستك الأولى</h3>
+            <p class="mt-3 text-sm text-neutral-400">افهم أنواع العدسات المختلفة واختر الأنسب لأسلوب تصويرك واحتياجاتك.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="فهد السبيعي" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">فهد السبيعي</div>
+                  <div class="text-xs text-neutral-500">مراجع معدات</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1493863641943-9b68992a8d07?auto=format&fit=crop&w=900&q=80" alt="تصوير البورتريه الذاتي" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">بورتريه</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>7 دقائق للقراءة</span>
+              <span>5 نوفمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">تصوير البورتريه الذاتي: كن موضوعك الخاص</h3>
+            <p class="mt-3 text-sm text-neutral-400">تعلم كيف تصور نفسك بشكل احترافي وإبداعي دون الحاجة لمساعد.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=120&q=80" alt="سلطان الراجحي" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">سلطان الراجحي</div>
+                  <div class="text-xs text-neutral-500">فنان تصوير</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80" alt="RAW مقابل JPEG" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">معدات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>6 دقائق للقراءة</span>
+              <span>8 نوفمبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">RAW مقابل JPEG: متى تستخدم كلاً منهما</h3>
+            <p class="mt-3 text-sm text-neutral-400">افهم الفرق بين صيغتي الصور الأكثر شيوعاً واختر الأنسب لاحتياجاتك.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=120&q=80" alt="كريم الفهد" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">كريم الفهد</div>
+                  <div class="text-xs text-neutral-500">خبير تقني</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-orange-500/50 hover:bg-white/10 hover:shadow-lg hover:shadow-orange-500/20">
+          <div class="relative">
+            <img class="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1486946255434-2466348c2166?auto=format&fit=crop&w=900&q=80" alt="التصوير البسيط" loading="lazy">
+            <span class="absolute right-4 top-4 rounded-full bg-neutral-900/80 px-3 py-1 text-xs text-white">تقنيات</span>
+          </div>
+          <div class="p-6 text-right">
+            <div class="flex items-center gap-3 text-xs text-neutral-400">
+              <span>6 دقائق للقراءة</span>
+              <span>28 أكتوبر 2025</span>
+            </div>
+            <h3 class="mt-3 text-lg font-bold transition-colors duration-300 group-hover:text-orange-400">التصوير البسيط (Minimalist): قوة الفراغ</h3>
+            <p class="mt-3 text-sm text-neutral-400">اكتشف جمال البساطة في التصوير وكيف تخلق صوراً قوية بعناصر قليلة.</p>
+            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="flex items-center gap-3">
+                <img class="h-10 w-10 rounded-full border border-white/20 object-cover" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80" alt="راشد الجاسر" loading="lazy">
+                <div class="text-right">
+                  <div class="text-sm font-semibold">راشد الجاسر</div>
+                  <div class="text-xs text-neutral-500">فنان بصري</div>
+                </div>
+              </div>
+              <button class="flex h-10 w-10 items-center justify-center rounded-full border border-orange-500/30 text-orange-400 transition group-hover:border-orange-500/60 group-hover:bg-orange-500/10">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div *ngIf="activeCategory === 'all' && currentPage > 5" class="rounded-3xl border border-white/10 bg-white/5 px-6 py-12 text-center">
+        <div class="text-lg font-semibold">لا توجد مقالات إضافية بعد</div>
+        <p class="mt-2 text-sm text-neutral-400">سنضيف المزيد من المحتوى قريباً.</p>
+      </div>
+      </div>
+
+      <div *ngIf="activeCategory === 'all'" class="mt-12 flex items-center justify-center gap-3">
+        <button type="button" (click)="prevPage()" [disabled]="currentPage === 1" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40" aria-label="السابق">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button type="button" (click)="setPage(5)" [ngClass]="currentPage === 5 ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="flex h-10 w-10 items-center justify-center rounded-full">5</button>
+        <button type="button" (click)="setPage(4)" [ngClass]="currentPage === 4 ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="flex h-10 w-10 items-center justify-center rounded-full">4</button>
+        <button type="button" (click)="setPage(3)" [ngClass]="currentPage === 3 ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="flex h-10 w-10 items-center justify-center rounded-full">3</button>
+        <button type="button" (click)="setPage(2)" [ngClass]="currentPage === 2 ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="flex h-10 w-10 items-center justify-center rounded-full">2</button>
+        <button type="button" (click)="setPage(1)" [ngClass]="currentPage === 1 ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'border border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10'" class="flex h-10 w-10 items-center justify-center rounded-full">1</button>
+        <button type="button" (click)="nextPage()" [disabled]="currentPage === totalPages" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-neutral-300 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40" aria-label="التالي">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div *ngIf="activeCategory === 'all'" class="mt-4 text-center text-xs text-neutral-500">صفحة {{ currentPage }} من {{ totalPages }}</div>
+    </section>
+
+    <app-footer></app-footer>
+  </div>
+</div>

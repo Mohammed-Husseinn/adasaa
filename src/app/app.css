@@ -1,0 +1,26 @@
+#blog-articles article {
+	cursor: pointer;
+}
+
+footer ul li .group {
+	align-items: center;
+	color: rgb(163 163 163);
+	display: inline-flex;
+	gap: 0.5rem;
+	transition: color 0.2s ease;
+}
+
+footer ul li .group svg {
+	opacity: 0;
+	transform: translateX(-4px);
+	transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+footer ul li .group:hover {
+	color: rgb(251 146 60);
+}
+
+footer ul li .group:hover svg {
+	opacity: 1;
+	transform: translateX(0);
+}
